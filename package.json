@@ -9,7 +9,9 @@
   "dependencies": {
     "@shoutem/ui": "^0.23.4",
     "react": "16.2.0",
-    "react-native": "0.52.2"
+    "react-native": "0.52.2",
+    "react-native-config": "^0.11.5",
+    "socket.io-client": "^2.0.4"
   },
   "devDependencies": {
     "babel-jest": "22.1.0",

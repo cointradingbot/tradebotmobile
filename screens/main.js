@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client'
+import Config from 'react-native-config'
 import {
     Platform,
     StyleSheet,
@@ -8,6 +10,24 @@ import {
 import { Divider, Subtitle, Caption, Image, Screen, ScrollView, Heading, NavigationBar, Icon, Title, Button, Row } from '@shoutem/ui'
 
 export class MainPage extends Component<{}> {
+    componentDidMount() {
+        console.log(Config.WEBSOCKET_URL)
+        const socket = io(Config.WEBSOCKET_URL, {transports: ['websocket']})
+        socket.on('connect', () => {
+            console.log("socket connected")
+            })
+      
+          socket.on('connect_error', (err) => {
+            console.log(err)
+          })
+      
+          socket.on('disconnect', () => {
+            console.log("Disconnected Socket!")
+          })
+          socket.on('price', (msg) => {
+              console.log(msg)
+          })
+    }
     render() {
         return (
             <Screen>
