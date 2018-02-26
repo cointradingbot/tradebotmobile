@@ -44,8 +44,8 @@ export class MainPage extends Component<{}> {
           socket.on('disconnect', () => {
             console.log("Disconnected Socket!")
           })
-          socket.on('price', (msg) => {
-              console.log(msg)
+          socket.on('pricejson', (msg) => {
+              this.setState(() => { return JSON.stringify(msg) })
           })
     }
     render() {
