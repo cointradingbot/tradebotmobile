@@ -46,6 +46,7 @@ export class MainPage extends Component<{}> {
           })
           socket.on('pricejson', (msg) => {
               this.setState(() => { return JSON.parse(msg) })
+              console.log(msg)
           })
     }
     render() {
