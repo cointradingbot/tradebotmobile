@@ -35,7 +35,7 @@ export class CoinRow extends Component<{}> {
                 <View styleName="vertical">
                     <Subtitle>{`${this.props.coin.buyAccount.platform} > ${this.props.coin.sellAccount.platform}`}</Subtitle>
                     <View styleName="horizontal stretch space-between">
-                        <Text styleName="multiline">{`Bid-Ask: ${this.props.coin.bidask.toFixed(8)}`}</Text>
+                        <Text styleName="multiline">{`Bid-Ask: ${this.props.coin.bidask}`}</Text>
                         <Caption>20 minutes ago</Caption>
                     </View>
                 </View>

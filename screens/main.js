@@ -14,51 +14,53 @@ export class MainPage extends Component<{}> {
     constructor(props) {
         super(props)
 
-        this.coins = [{
-            coin: 'ADA',
-            sellAccount: {
-                platform: 'Binance',
-                sellPrice: 0.00001234
+        this.state = {
+            coins: [{
+                coin: 'ADA',
+                sellAccount: {
+                    platform: 'Binance',
+                    sellPrice: 0.00001234
+                },
+                buyAccount: {
+                    platform: 'Bittrex',
+                    buyPrice: 0.00001233
+                },
+                bidask: 0.00000001,
+                profit: 0,
+                coinQty: 1000,
+                iconPath: require('../assets/icons/ada.png')
             },
-            buyAccount: {
-                platform: 'Bittrex',
-                buyPrice: 0.00001233
+            {
+                coin: 'XVG',
+                sellAccount: {
+                    platform: 'Binance',
+                    sellPrice: 0.00001234
+                },
+                buyAccount: {
+                    platform: 'Bittrex',
+                    buyPrice: 0.00001233
+                },
+                bidask: 0.00000010,
+                profit: 0,
+                coinQty: 1000,
+                iconPath: require('../assets/icons/xvg.png')
             },
-            bidask: 0.00000001,
-            profit: 0,
-            coinQty: 1000,
-            iconPath: require('../assets/icons/ada.png')
-        },
-        {
-            coin: 'XVG',
-            sellAccount: {
-                platform: 'Binance',
-                sellPrice: 0.00001234
-            },
-            buyAccount: {
-                platform: 'Bittrex',
-                buyPrice: 0.00001233
-            },
-            bidask: 0.00000010,
-            profit: 0,
-            coinQty: 1000,
-            iconPath: require('../assets/icons/xvg.png')
-        },
-        {
-            coin: 'XLM',
-            sellAccount: {
-                platform: 'Bittrex',
-                sellPrice: 0.00001234
-            },
-            buyAccount: {
-                platform: 'Binance',
-                buyPrice: 0.00001233
-            },
-            bidask: 0.00000015,
-            profit: 0,
-            coinQty: 1000,
-            iconPath: require('../assets/icons/xlm.png')
-        }]
+            {
+                coin: 'XLM',
+                sellAccount: {
+                    platform: 'Bittrex',
+                    sellPrice: 0.00001234
+                },
+                buyAccount: {
+                    platform: 'Binance',
+                    buyPrice: 0.00001233
+                },
+                bidask: 0.00000015,
+                profit: 0,
+                coinQty: 1000,
+                iconPath: require('../assets/icons/xlm.png')
+            }]
+        }
     }
 
     componentDidMount() {
@@ -75,10 +77,19 @@ export class MainPage extends Component<{}> {
         socket.on('disconnect', () => {
             console.log("Disconnected Socket!")
         })
-        //   socket.on('pricejson', (msg) => {
-        //       this.setState(() => { return JSON.parse(msg) })
-        //       console.log(msg)
-        //   })
+        socket.on('pricejson', (coinInfo) => {
+            coinInfo = JSON.parse(coinInfo)
+
+            const index = this.state.coins.findIndex(coin => coin.coin === coinInfo.coin)
+
+            this.state.coins[index].bidask = coinInfo.bidask
+            this.state.coins[index].buyAccount = coinInfo.buyAccount
+            this.state.coins[index].coinQty = coinInfo.coinQty
+            this.state.coins[index].profit = coinInfo.profit
+            this.state.coins[index].sellAccount = coinInfo.sellAccount
+
+            this.forceUpdate()
+        })
     }
     render() {
         return (
@@ -94,12 +105,10 @@ export class MainPage extends Component<{}> {
                 />
                 <ScrollView style={{ marginTop: 70 }}>
                     {
-                        this.coins.map(coin => {
-                            return [
-                                <CoinRow coin={coin} />,
-                                <Divider styleName="line" />
-                            ]
-                        })
+                        this.state.coins.map(coin =>
+                            <CoinRow coin={coin} />,
+                            <Divider styleName="line" />
+                        )
                     }
                 </ScrollView>
             </Screen>
