@@ -26,7 +26,8 @@ export class MainPage extends Component<{}> {
             },
             bidask: 0.00000001,
             profit: 0,
-            coinQty: 1000
+            coinQty: 1000,
+            iconPath: require('../assets/icons/ada.png')
         },
         {
             coin: 'XVG',
@@ -38,23 +39,25 @@ export class MainPage extends Component<{}> {
                 platform: 'Bittrex',
                 buyPrice: 0.00001233
             },
-            bidask: 0.00000001,
+            bidask: 0.00000010,
             profit: 0,
-            coinQty: 1000
+            coinQty: 1000,
+            iconPath: require('../assets/icons/xvg.png')
         },
         {
             coin: 'XLM',
             sellAccount: {
-                platform: 'Binance',
+                platform: 'Bittrex',
                 sellPrice: 0.00001234
             },
             buyAccount: {
-                platform: 'Bittrex',
+                platform: 'Binance',
                 buyPrice: 0.00001233
             },
-            bidask: 0.00000001,
+            bidask: 0.00000015,
             profit: 0,
-            coinQty: 1000
+            coinQty: 1000,
+            iconPath: require('../assets/icons/xlm.png')
         }]
     }
 
@@ -93,7 +96,7 @@ export class MainPage extends Component<{}> {
                     {
                         this.coins.map(coin => {
                             return [
-                                <CoinRow />,
+                                <CoinRow coin={coin} />,
                                 <Divider styleName="line" />
                             ]
                         })

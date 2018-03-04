@@ -31,11 +31,11 @@ export class CoinRow extends Component<{}> {
     render() {
         return (
             <Row>
-                <Image styleName="small-avatar top" source={require('../../assets/icons/ada.png')} />
+                <Image styleName="small-avatar top" source={this.props.coin.iconPath} />
                 <View styleName="vertical">
-                    <Subtitle>{`${this.state.buyAccount.platform} > ${this.state.sellAccount.platform}`}</Subtitle>
+                    <Subtitle>{`${this.props.coin.buyAccount.platform} > ${this.props.coin.sellAccount.platform}`}</Subtitle>
                     <View styleName="horizontal stretch space-between">
-                        <Text styleName="multiline">{`Bid-Ask: ${this.state.bidask}`}</Text>
+                        <Text styleName="multiline">{`Bid-Ask: ${this.props.coin.bidask.toFixed(8)}`}</Text>
                         <Caption>20 minutes ago</Caption>
                     </View>
                 </View>
